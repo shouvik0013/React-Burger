@@ -3,18 +3,14 @@ import classes from './Burger.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const burger = ( props ) => {
-    //                          ["salad", "cheese"]
-    const ingredients = Object.keys(props.ingredients)
-    .map((ingredient, index) => {
-        let ingredientCount = props.ingredients[ingredient];   // here got the actual no. of ingredient like salad:2
-        let newArray = [];
-        for (let i=0; i<ingredientCount; i++) {
-            newArray.push(<BurgerIngredient type={ingredient}/>);
-        }
-        return newArray; //   [["a", "a"], ["b"]]
-    }); // end of map
-    // Object.keys().entries();
-    const flatenedIngredients = ingredients.flat();
+    //                              ["salad", "bacon"]
+    const transformedIngredients = Object.keys(props.ingredients)
+        .map(igKey => {
+            return [...Array(props.ingredients[igKey])].map((_, index) => {
+                return <BurgerIngredient key={igKey+index} type={igKey}/>
+            })
+        });
+
     return(
         <div className={classes.Burger}>
             <BurgerIngredient type="bread-top"/>
@@ -25,7 +21,7 @@ const burger = ( props ) => {
             */}
             {/* <BurgerIngredient type="bacon"/>
             <BurgerIngredient type="meat"/> */}
-            {flatenedIngredients}
+            {transformedIngredients}
             <BurgerIngredient type="bread-bottom"/>
         </div>
     );
