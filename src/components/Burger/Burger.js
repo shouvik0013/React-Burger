@@ -10,6 +10,13 @@ const burger = ( props ) => {
                 return <BurgerIngredient key={igKey+index} type={igKey}/>
             })
         });
+        //                      [["salad", 2], ["cheese", 4]]
+    const ingredients_transformed = Object.entries(props.ingredients)
+            .map(igInfo => {
+                return [...Array(igInfo[1])].map((_, index) => {
+                    return <BurgerIngredient key={igInfo[0]+index} type={igInfo[0]}/>
+                });
+            });
 
     return(
         <div className={classes.Burger}>
@@ -21,7 +28,7 @@ const burger = ( props ) => {
             */}
             {/* <BurgerIngredient type="bacon"/>
             <BurgerIngredient type="meat"/> */}
-            {transformedIngredients}
+            {ingredients_transformed}
             <BurgerIngredient type="bread-bottom"/>
         </div>
     );
