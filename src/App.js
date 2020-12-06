@@ -8,7 +8,7 @@ class App extends Component {
       <div>
         <Layout>
           {/* Layout will contain actual components*/}
-          <BurgerBuilder/>
+          <BurgerBuilder/> {/*it is a container component*/}
         </Layout>
       </div>
     );

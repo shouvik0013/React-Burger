@@ -4,12 +4,21 @@ import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 const burger = ( props ) => {
     //                              ["salad", "bacon"]
-    const transformedIngredients = Object.keys(props.ingredients)
+    let transformedIngredients = Object.keys(props.ingredients)
         .map(igKey => {
             return [...Array(props.ingredients[igKey])].map((_, index) => {
                 return <BurgerIngredient key={igKey+index} type={igKey}/>
-            })
-        });
+            });
+        }).reduce((arr, el) => {    // here arr is the empty [] that we passed as the 2nd argument in reduce function
+            // [[aa, bb], [cc, dd]] here el is [aa, bb] and [cc, dd]
+            return arr.concat(el);
+        }, []);
+    
+    console.log(transformedIngredients);
+    if (transformedIngredients.length === 0) {
+        console.log('You forgot to add ingredients');
+        transformedIngredients = <p>Please start adding elements!</p>;
+    }
         //                      [["salad", 2], ["cheese", 4]]
     const ingredients_transformed = Object.entries(props.ingredients)
             .map(igInfo => {
@@ -17,7 +26,7 @@ const burger = ( props ) => {
                     return <BurgerIngredient key={igInfo[0]+index} type={igInfo[0]}/>
                 });
             });
-
+    
     return(
         <div className={classes.Burger}>
             <BurgerIngredient type="bread-top"/>
@@ -28,7 +37,7 @@ const burger = ( props ) => {
             */}
             {/* <BurgerIngredient type="bacon"/>
             <BurgerIngredient type="meat"/> */}
-            {ingredients_transformed}
+            {transformedIngredients}
             <BurgerIngredient type="bread-bottom"/>
         </div>
     );
