@@ -12,7 +12,12 @@ const controls = [
 const buildControls = ( props ) => {
     const transformedControls = controls.map((elms, index) => {
         return(
-            <BuildControl key={elms.label} igName={elms.label}/>
+            <BuildControl
+                key={elms.label}
+                igName={elms.label}
+                ingredientAdded={() => {
+                    props.ingredientAdded(elms.type)
+                }}/>
         );
     });
     return(

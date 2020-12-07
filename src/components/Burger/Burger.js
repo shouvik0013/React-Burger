@@ -20,12 +20,12 @@ const burger = ( props ) => {
         transformedIngredients = <p>Please start adding elements!</p>;
     }
         //                      [["salad", 2], ["cheese", 4]]
-    const ingredients_transformed = Object.entries(props.ingredients)
-            .map(igInfo => {
-                return [...Array(igInfo[1])].map((_, index) => {
-                    return <BurgerIngredient key={igInfo[0]+index} type={igInfo[0]}/>
-                });
-            });
+    // const ingredients_transformed = Object.entries(props.ingredients)
+    //         .map(igInfo => {
+    //             return [...Array(igInfo[1])].map((_, index) => {
+    //                 return <BurgerIngredient key={igInfo[0]+index} type={igInfo[0]}/>
+    //             });
+    //         });
     
     return(
         <div className={classes.Burger}>
