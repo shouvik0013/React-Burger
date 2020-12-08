@@ -15,9 +15,11 @@ const buildControls = ( props ) => {
             <BuildControl
                 key={elms.label}
                 igName={elms.label}
+                disableButton={props.disableButton[elms.type]}
                 ingredientAdded={() => {
                     props.ingredientAdded(elms.type)
-                }}/>
+                }}
+                ingredientRemoved={() => props.ingredientRemoved(elms.type)}/>
         );
     });
     return(

@@ -3,13 +3,15 @@ import classes from './BuildControl.css';
 
 
 
-const buildControl = (props) => {
+const buildControl = (props) => { 
     return(
         <div className={classes.BuildControl}>
             {/* igName is Ingredient Name */}
             <div className={classes.Label}>{props.igName}</div>
             <button 
                 className={classes.Less}
+                onClick={props.ingredientRemoved}
+                disabled={props.disableButton}
                 >Less</button>
             <button 
                 className={classes.More}
