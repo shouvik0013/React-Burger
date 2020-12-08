@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './BuildControls.css';
 import BuildControl from './BuildControl/BuildControl';
+import { number } from 'prop-types';
 
 const controls = [
     {label: "Salad", type:"salad"},
@@ -24,6 +25,7 @@ const buildControls = ( props ) => {
     });
     return(
         <div className={classes.BuildControls}>
+            <p><em>Current Price: </em><strong>{props.price.toFixed(2)}</strong></p>
             {transformedControls}
         </div>
     );
