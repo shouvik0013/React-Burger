@@ -24,15 +24,17 @@ class BurgerBuilder extends Component {
                 cheese: 0,
                 meat: 0,
             },
+            purchaseable: false,
             totalPrice: 40,
 
         } // end of state
     }
+
     addIngredientsHandler = (type) => {
         // state should be updated in a immutable way
         const oldCount = this.state.ingredients[type];
         const updatedCount = oldCount + 1;
-        const updatedIngredients = {
+        let updatedIngredients = {
             ...this.state.ingredients
         };
         updatedIngredients[type] = updatedCount;
@@ -40,11 +42,17 @@ class BurgerBuilder extends Component {
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice + priceAddtion;
 
+        console.log('updatedIngredients: ' + Object.keys(updatedIngredients).map((elems)=>updatedIngredients[elems]));
+        let total=Object.keys(updatedIngredients).map((elems)=>updatedIngredients[elems]).reduce((total, curv, curi)=>total+curv);
+        let newPurchaseable = total>0;
 
+
+        console.log('totalIngredients: ' + total);
         this.setState((prevState, props) => {
             return {
                 ingredients: updatedIngredients,
-                totalPrice: newPrice
+                totalPrice: newPrice,
+                purchaseable: newPurchaseable,
             };
         });
     }
@@ -56,7 +64,7 @@ class BurgerBuilder extends Component {
             return;
         }
         const updatedCount = oldCount - 1;
-        const updatedIngredients = {
+        let updatedIngredients = {
             ...this.state.ingredients
         };
         updatedIngredients[type] = updatedCount;
@@ -64,11 +72,15 @@ class BurgerBuilder extends Component {
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice - priceDeduction;
 
+        console.log('updatedIngredients: ' + Object.keys(updatedIngredients).map((elems)=>updatedIngredients[elems]));
+        let total=Object.keys(updatedIngredients).map((elems)=>updatedIngredients[elems]).reduce((total, curv, curi)=>total+curv);
+        let newPurchaseable = total>0;
 
         this.setState((prevState, props) => {
             return {
                 ingredients: updatedIngredients,
-                totalPrice: newPrice
+                totalPrice: newPrice,
+                purchaseable: newPurchaseable,
             };
         });
     }
@@ -81,6 +93,7 @@ class BurgerBuilder extends Component {
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0;
         }
+        // console.log(this.state);
         return(
             <Aux>
                 <Burger ingredients={this.state.ingredients} />
@@ -89,6 +102,7 @@ class BurgerBuilder extends Component {
                     ingredientRemoved={this.removeIngredientsHandler}
                     disableButton={disabledInfo}
                     price={this.state.totalPrice}
+                    purchaseable={this.state.purchaseable}
                 />
             </Aux>
         );
