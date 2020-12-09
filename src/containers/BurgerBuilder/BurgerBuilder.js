@@ -24,10 +24,22 @@ class BurgerBuilder extends Component {
                 cheese: 0,
                 meat: 0,
             },
+            purchasable: false,
             totalPrice: 40,
 
         } // end of state
     }
+
+    updatePurchaseState(ingredients) {
+        const sum = Object.keys(ingredients).map((igKey)=>ingredients[igKey])
+        .reduce((total, currVal, currInd)=>total+currVal, 0);
+        this.setState((prevState, props) => {
+            return {
+                purchasable: sum>0
+            }
+        });
+    }
+
     addIngredientsHandler = (type) => {
         // state should be updated in a immutable way
         const oldCount = this.state.ingredients[type];
@@ -47,6 +59,7 @@ class BurgerBuilder extends Component {
                 totalPrice: newPrice
             };
         });
+        this.updatePurchaseState(updatedIngredients);
     }
 
     removeIngredientsHandler = (type) => {
@@ -71,6 +84,7 @@ class BurgerBuilder extends Component {
                 totalPrice: newPrice
             };
         });
+        this.updatePurchaseState(updatedIngredients);
     }
 
     // we must define render method in class based component
@@ -89,6 +103,7 @@ class BurgerBuilder extends Component {
                     ingredientRemoved={this.removeIngredientsHandler}
                     disableButton={disabledInfo}
                     price={this.state.totalPrice}
+                    purchasable={this.state.purchasable}
                 />
             </Aux>
         );
