@@ -1,5 +1,6 @@
 import React from 'react';
 import Aux from '../../../hoc/Auxiliary';
+import CustomButton from '../../UI/Button/Button';
 
 const orderSummary = ( props ) => {
     //                                  ["salad", "cheese"]
@@ -18,6 +19,8 @@ const orderSummary = ( props ) => {
                 {ingredientSummary}
             </ul>
             <p>Continue to checkout?</p>
+            <CustomButton btnType={"Danger"} clicked={props.purchaseCancel}>CANCEL</CustomButton>
+            <CustomButton btnType={"Success"} clicked={props.purchaseContinue}>CONTINUE</CustomButton>
         </Aux>
     );
 };
