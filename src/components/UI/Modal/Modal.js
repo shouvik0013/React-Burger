@@ -18,3 +18,4 @@ const modal = ( props ) => (
 );
 
 export default modal;
+// it is exported to BurgerBuilder.js
